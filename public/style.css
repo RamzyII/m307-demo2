@@ -6,7 +6,8 @@
 }
 
 * {
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
+  /*font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;*/
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -21,19 +22,90 @@ footer {
   padding: 12px;
 }
 
+/* ---- Cursor ----- 
+
+.cursor-dot {
+  width: 5px;
+  height: 5px;
+  background-color: white;
+}
+
+.cursor-outline {
+  width: 30px;
+  height: 30px;
+  border: 2px solid hsla(0, 0%, 100%, 0.5);
+}
+
+.cursor-dot,
+.cursor-outline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: translate(-50%, -50%);
+  border-radius: 50%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+Disclaimer: Geit nid :( 
+
+*/
+
 /* ---- Buttons ----- */
 
 .btn-main {
-  background-color: var(--accent);
+  background-color: #382d12;
   color: white;
-  font-size: 33px;
+  font-size: 25px;
   font-weight: bold;
   border: none;
-  padding: 15px 30px;
+  padding: 15px 60px;
   border-radius: 50px;
   cursor: pointer;
-  margin-top: 20px;
-  transition: background-color 0.3s ease;
+  margin-top: 70px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.btn-main:hover {
+  background-color: #ffaa08;
+  box-shadow: 0 0 20px 0#ffaa08;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.btn-main::after,
+.btn-main::before {
+  --angle: 0deg;
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: conic-gradient(from var(--angle), transparent 60%, #ffaa08);
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  padding: 2px;
+  border-radius: 50px;
+  animation: 3s spin linear infinite;
+}
+
+.btn-main::before {
+  filter: blur(1rem); /*Glow funktioniert nicht richtig auf Safari*/
+  transform: translate3d(0, 0, 0);
+}
+@keyframes spin {
+  from {
+    --angle: 0deg;
+  }
+  to {
+    --angle: 360deg;
+  }
 }
 
 .btn-secondary {
@@ -83,7 +155,8 @@ html {
   justify-content: flex-start;
   align-items: flex-start;
   height: 100vh;
-  background: url("Image_BG_01.jpeg") no-repeat center center/cover;
+  background: url("Image_BG_4k.jpeg") no-repeat center center/cover;
+  background-position-y: bottom;
   background-color: rgba(0, 0, 0, 0.5);
   background-blend-mode: darken;
   flex-direction: column;
@@ -112,16 +185,49 @@ h1 {
   color: #ffaa07;
 }
 
-.brn-main:hover {
-  background-color: #e69905;
-}
-
 é {
   background-color: #e69905;
 }
 
 .start-margin {
   padding-left: 50px;
+  padding-top: 20px;
+  padding-bottom: 50px;
+  z-index: 1;
 }
 
-/* Start CSS */
+/* Intro Screen 
+
+.intro {
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #292222;
+  transition: 1s;
+}
+
+.logo-img {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 15%;
+  bottom: -20px;
+  opacity: 0;
+}
+
+.logo-img.active {
+  opacity: 1;
+  transition: ease-in-out 0.5s;
+}
+
+.logo-img.fade {
+  bottom: 150px;
+  opacity: 0;
+  transition: ease-in-out 0.5s;
+}
+
+*/

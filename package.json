@@ -1,8 +1,8 @@
 {
-  "name": "express-example-starter",
+  "name": "soundbase",
   "version": "1.0.0",
   "description": "An Express-based application skeleton",
-  "main": "app.js",
+  "main": "start.handlebars",
   "scripts": {
     "start": "nodemon index.js localhost 8080"
   },
