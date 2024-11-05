@@ -13,6 +13,13 @@
   box-sizing: border-box;
 }
 
+body.front {
+  background-image: url("/Image_BG_4k.jpeg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 body {
   background-color: var(--main);
 }
@@ -155,10 +162,6 @@ html {
   justify-content: flex-start;
   align-items: flex-start;
   height: 100vh;
-  background: url("Image_BG_4k.jpeg") no-repeat center center/cover;
-  background-position-y: bottom;
-  background-color: rgba(0, 0, 0, 0.5);
-  background-blend-mode: darken;
   flex-direction: column;
 }
 
@@ -231,3 +234,175 @@ h1 {
 }
 
 */
+
+/* Formular Register */
+
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  color: white;
+}
+
+.form-container h1 {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.form-container label {
+  display: block;
+  text-align: left;
+  font-size: 1em;
+  margin-bottom: 5px;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"] {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 25px;
+  background-color: #393434;
+  color: white;
+  font-size: 1em;
+}
+
+.password-fields {
+  display: flex;
+  gap: 10px;
+}
+
+.password-fields div {
+  flex: 1;
+}
+
+.btn-register {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffaa08;
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  border: none;
+  padding: 15px 60px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-register span {
+  margin-left: 8px;
+}
+
+.btn-register:hover {
+  background-color: #ff9a05;
+}
+
+.login-text {
+  margin-top: 20px;
+  color: #bbb;
+  font-size: 0.9em;
+}
+
+.login-text a {
+  color: #ffaa08;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-text a:hover {
+  text-decoration: underline;
+}
+
+/* Login Form */
+
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+  color: white;
+}
+
+.form-container h1 {
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.form-container label {
+  display: block;
+  text-align: left;
+  font-size: 1em;
+  margin-bottom: 5px;
+}
+
+.form-container input[type="text"],
+.form-container input[type="password"] {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 25px;
+  background-color: #393434;
+  color: white;
+  font-size: 1em;
+}
+
+.btn-login {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffaa08;
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  border: none;
+  padding: 15px 60px;
+  border-radius: 25px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-login span {
+  margin-left: 8px;
+}
+
+.btn-login:hover {
+  background-color: #ff9a05;
+}
+
+.register-text {
+  margin-top: 20px;
+  color: #bbb;
+  font-size: 0.9em;
+}
+
+.register-text a {
+  color: #ffaa08;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.register-text a:hover {
+  text-decoration: underline;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="password"] {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: none;
+  border-radius: 25px;
+  background-color: #393434;
+  color: white;
+  font-size: 1em;
+  box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.4); /* Sanfter Inset Box Shadow */
+}

@@ -10,11 +10,24 @@ const app = createApp({
 
 /* Startseite */
 app.get("/", async function (req, res) {
-  res.render("start", {});
+  res.render("start", { class: "front" });
+});
+
+app.get("/register", async function (req, res) {
+  res.render("register", {});
+});
+
+app.get("/login", async function (req, res) {
+  res.render("login", {});
 });
 
 app.get("/impressum", async function (req, res) {
   res.render("impressum", {});
+});
+
+app.get("/overview", async function (req, res) {
+  const songs = await app.locals.pool.query("select * from songs");
+  res.render("overview", { songs: songs.rows });
 });
 
 /* Wichtig! Diese Zeilen müssen immer am Schluss der Website stehen! */
