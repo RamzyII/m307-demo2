@@ -239,80 +239,71 @@ h1 {
 
 .form-container {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 100px auto;
+  padding: 20px;
   text-align: center;
-  color: white;
 }
 
-.form-container h1 {
+h1 {
   font-size: 2.5em;
-  font-weight: bold;
-  margin-bottom: 20px;
+  color: white;
+  margin-bottom: 30px;
 }
 
-.form-container label {
-  display: block;
-  text-align: left;
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+label {
   font-size: 1em;
+  color: white;
+  text-align: left;
   margin-bottom: 5px;
+  display: block;
 }
 
-.form-container input[type="text"],
-.form-container input[type="email"],
-.form-container input[type="password"] {
+input[type="text"],
+input[type="password"] {
   width: 100%;
   padding: 15px;
-  margin-bottom: 20px;
   border: none;
   border-radius: 25px;
   background-color: #393434;
   color: white;
   font-size: 1em;
-}
-
-.password-fields {
-  display: flex;
-  gap: 10px;
-}
-
-.password-fields div {
-  flex: 1;
+  box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.4);
 }
 
 .btn-register {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   background-color: #ffaa08;
   color: white;
   font-size: 1.2em;
   font-weight: bold;
   border: none;
   padding: 15px 60px;
-  border-radius: 25px;
+  border-radius: 50px;
   cursor: pointer;
-  margin-top: 20px;
-  transition: background-color 0.3s ease;
-}
-
-.btn-register span {
-  margin-left: 8px;
+  margin-top: 10px;
+  transition: all 0.2s ease;
+  position: relative;
 }
 
 .btn-register:hover {
-  background-color: #ff9a05;
+  background-color: #d99006;
+  box-shadow: 0 0 20px rgba(255, 170, 8, 0.8);
 }
 
 .login-text {
-  margin-top: 20px;
-  color: #bbb;
   font-size: 0.9em;
+  color: white;
+  margin-top: 10px;
 }
 
 .login-text a {
   color: #ffaa08;
   text-decoration: none;
-  font-weight: bold;
 }
 
 .login-text a:hover {
@@ -323,86 +314,73 @@ h1 {
 
 .form-container {
   max-width: 400px;
-  margin: 0 auto;
+  margin: 100px auto;
+  padding: 20px;
   text-align: center;
-  color: white;
 }
 
-.form-container h1 {
+h1 {
   font-size: 2.5em;
-  font-weight: bold;
-  margin-bottom: 20px;
+  color: white;
+  margin-bottom: 30px;
 }
 
-.form-container label {
-  display: block;
-  text-align: left;
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+label {
   font-size: 1em;
+  color: white;
+  text-align: left;
   margin-bottom: 5px;
+  display: block;
 }
 
-.form-container input[type="text"],
-.form-container input[type="password"] {
+input[type="text"],
+input[type="password"] {
   width: 100%;
   padding: 15px;
-  margin-bottom: 20px;
   border: none;
   border-radius: 25px;
   background-color: #393434;
   color: white;
   font-size: 1em;
+  box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.4);
 }
 
 .btn-login {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
   background-color: #ffaa08;
   color: white;
   font-size: 1.2em;
   font-weight: bold;
   border: none;
   padding: 15px 60px;
-  border-radius: 25px;
+  border-radius: 50px;
   cursor: pointer;
-  margin-top: 20px;
-  transition: background-color 0.3s ease;
-}
-
-.btn-login span {
-  margin-left: 8px;
+  margin-top: 10px;
+  transition: all 0.2s ease;
+  position: relative;
 }
 
 .btn-login:hover {
-  background-color: #ff9a05;
+  background-color: #d99006;
+  box-shadow: 0 0 20px rgba(255, 170, 8, 0.8);
 }
 
 .register-text {
-  margin-top: 20px;
-  color: #bbb;
   font-size: 0.9em;
+  color: white;
+  margin-top: 10px;
 }
 
 .register-text a {
   color: #ffaa08;
   text-decoration: none;
-  font-weight: bold;
 }
 
 .register-text a:hover {
   text-decoration: underline;
-}
-
-.form-container input[type="text"],
-.form-container input[type="email"],
-.form-container input[type="password"] {
-  width: 100%;
-  padding: 15px;
-  margin-bottom: 20px;
-  border: none;
-  border-radius: 25px;
-  background-color: #393434;
-  color: white;
-  font-size: 1em;
-  box-shadow: inset 0px 3px 5px rgba(0, 0, 0, 0.4); /* Sanfter Inset Box Shadow */
 }

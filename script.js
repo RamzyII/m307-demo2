@@ -1,52 +1,39 @@
-let intro = document.querySelector(".intro");
-let logo = document.querySelector(".logo");
-let logoSpan = document.querySelectorAll(".logo-img");
-window.addEventListener("DOMContentLoaded", () => {
-  setTimeout(() => {
-    logoSpan.forEach((span) => {
-      setTimeout(() => {
-        span.classList.add("active");
-      });
-    });
-
-    setTimeout(() => {
-      logoSpan.forEach((span, idx) => {
-        setTimeout(() => {
-          span.classList.remove("active");
-          span.classList.add("fade");
-        });
-      });
-    }, 2000);
-    setTimeout(() => {
-      intro.style.top = "-100vh";
-    }, 2300);
-  });
+app.get("/register", function (req, res) {
+  res.render("register");
 });
 
-document
-  .getElementById("registerForm")
-  .addEventListener("submit", function (event) {
-    event.preventDefault(); // Verhindert das automatische Abschicken des Formulars
-
-    // Eingabefelder sammeln
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
-    const confirm = document.getElementById("confirm").value.trim();
-
-    // Überprüfung, ob alle Felder ausgefüllt sind
-    if (!name || !email || !password || !confirm) {
-      alert("Bitte füllen Sie alle Felder aus.");
-      return;
+app.post("/register", function (req, res) {
+  var password = bcrypt.hashSync(req.body.password, 10);
+  pool.query(
+    "INSERT INTO users (username, password) VALUES ($1, $2)",
+    [req.body.username, password],
+    (error, result) => {
+      if (error) {
+        console.log(error);
+      }
+      res.redirect("/login");
     }
+  );
+});
 
-    // Überprüfung, ob die Passwörter übereinstimmen
-    if (password !== confirm) {
-      alert("Die Passwörter stimmen nicht überein.");
-      return;
+app.get("/login", function (req, res) {
+  res.render("login");
+});
+
+app.post("/login", function (req, res) {
+  pool.query(
+    "SELECT * FROM users WHERE username = $1",
+    [req.body.username],
+    (error, result) => {
+      if (error) {
+        console.log(error);
+      }
+      if (bcrypt.compareSync(req.body.password, result.rows[0].password)) {
+        req.session.userid = result.rows[0].id;
+        res.redirect("/");
+      } else {
+        res.redirect("/login");
+      }
     }
-
-    // Wenn alle Felder ausgefüllt sind und die Passwörter übereinstimmen, Formular absenden
-    alert("Registrierung erfolgreich!");
-    this.submit(); // Formular wird hier nur abgesendet, wenn alle Bedingungen erfüllt sind
-  });
+  );
+});

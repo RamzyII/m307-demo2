@@ -25,7 +25,15 @@ app.get("/impressum", async function (req, res) {
   res.render("impressum", {});
 });
 
+app.get("intern", async function (req, res) {
+  res.render("intern", {});
+});
+
 app.get("/overview", async function (req, res) {
+  if (!req.session.userid) {
+    res.redirect("/register");
+    return;
+  }
   const songs = await app.locals.pool.query("select * from songs");
   res.render("overview", { songs: songs.rows });
 });
@@ -33,4 +41,15 @@ app.get("/overview", async function (req, res) {
 /* Wichtig! Diese Zeilen müssen immer am Schluss der Website stehen! */
 app.listen(3010, () => {
   console.log(`Example app listening at http://localhost:3010`);
+});
+
+app.post("/login", async (req, res) => {
+  const user = await login.loginUser(req);
+  if (!user) {
+    res.redirect("/login");
+    return;
+  } else {
+    res.redirect("/intern");
+    return;
+  }
 });

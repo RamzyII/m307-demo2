@@ -1,18 +1,32 @@
+<!-- div class="form-container">
+  <h1>Login</h1>
+  <form action="/login" method="POST">
+    E-Mail:
+    <input name="username" type="text" /><br />
+    Passwort:
+    <input name="password" type="password" /><br />
+    <input type="submit" value="Anmelden" />
+  </form>
+  <a href="/register" class="register-text">Registrieren</a>
+</div> -->
+
 <div class="form-container">
   <h1>Login</h1>
-  <form>
-    <label for="username">Name or E-Mail</label>
-    <input type="text" id="username" name="username" />
+  <form action="/login" enctype="multipart/form-data" method="POST">
+    <label for="name">Benutzername</label>
+    <input type="text" name="name" id="name" required />
 
-    <label for="password">Passwort</label>
-    <input type="password" id="password" name="password" />
+    <label for="passwort">Passwort</label>
+    <input type="passwort" name="passwort" id="passwort" required />
 
     <button type="submit" class="btn-login">
       Start Sharing
       <span>→</span>
     </button>
+
     <p class="register-text">
-      <a href="/register">Register instead</a>
+      Register instead?
+      <a href="/register">Register</a>
     </p>
   </form>
 </div>

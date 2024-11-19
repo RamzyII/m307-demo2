@@ -1,27 +1,50 @@
-<div class="form-container">
+<!-- <div class="form-container">
   <h1>Register</h1>
-  <form id="registerForm">
+  <form id="registerForm" action="/register" method="POST">
     <label for="name">Name</label>
-    <input type="text" id="name" name="name" required />
+    <input name="username" type="text" /><br />
 
     <label for="email">E-Mail</label>
-    <input type="email" id="email" name="email" required />
+    <input type="email" name="email" required />
 
     <div class="password-fields">
       <div>
         <label for="password">Passwort</label>
-        <input type="password" id="password" name="password" required />
+        <input name="password" type="password" /><br />
       </div>
-      <div>
-        <label for="confirm">Confirm</label>
-        <input type="password" id="confirm" name="confirm" required />
-      </div>
-    </div>
+    </div> 
+<form action="/register" method="POST">
+  E-Mail:
+  <input name="username" type="text" /><br />
+  Passwort:
+  <input name="password" type="password" /><br />
+  <input type="submit" value="Registrieren" />
+</form>
+<button type="submit" class="btn-register">
+      Register
+      <span>→</span>
+    </button>
+    <p class="login-text">
+      Already have an Account?
+      <a href="/login">Login</a>
+    </p>
+  </form>
+</div> -->
+
+<div class="form-container">
+  <h1>Register</h1>
+  <form action="/register" method="POST">
+    <label for="email">E-Mail</label>
+    <input name="email" type="text" id="email" required />
+
+    <label for="passwort">Passwort</label>
+    <input name="passwor" type="password" id="passwort" required />
 
     <button type="submit" class="btn-register">
       Register
       <span>→</span>
     </button>
+
     <p class="login-text">
       Already have an Account?
       <a href="/login">Login</a>
