@@ -1,4 +1,4 @@
-import { createApp } from "./config.js";
+import { createApp, upload } from "./config.js";
 
 const app = createApp({
   user: "blue_flower_6241",
@@ -13,19 +13,22 @@ app.get("/", async function (req, res) {
   res.render("start", { class: "front" });
 });
 
-app.get("/register", async function (req, res) {
-  res.render("register", {});
-});
-
-app.get("/login", async function (req, res) {
-  res.render("login", {});
-});
-
 app.get("/impressum", async function (req, res) {
   res.render("impressum", {});
 });
 
-app.get("intern", async function (req, res) {
+app.get("/search", async (req, res) => {
+  let posts = await app.locals.pool.query("SELECT * FROM account_recommends");
+  if (req.query.suche) {
+    posts = await app.locals.pool.query(
+      "SELECT * FROM account_recommends WHERE title LIKE '%' || $1 || '%'",
+      [req.query.suche]
+    );
+  }
+  res.render("search", { posts: posts.rows });
+});
+
+app.get("/intern", async function (req, res) {
   res.render("intern", {});
 });
 
@@ -43,13 +46,34 @@ app.listen(3010, () => {
   console.log(`Example app listening at http://localhost:3010`);
 });
 
-app.post("/login", async (req, res) => {
-  const user = await login.loginUser(req);
-  if (!user) {
-    res.redirect("/login");
-    return;
-  } else {
-    res.redirect("/intern");
-    return;
-  }
+app.get("/uploadpfp", async function (req, res) {
+  res.render("uploadpfp", {});
 });
+
+app.post(
+  "/uploadProfilePicture",
+  upload.single("profilepicture"),
+  async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ message: "No file uploaded!" });
+      }
+
+      const filePath = `/uploads/profiles/${req.file.filename}`;
+      const userId = req.session.userid; // Benutzer-ID aus der Session
+
+      // Update der Datenbank
+      await app.locals.pool.query(
+        "UPDATE users SET profilpicture = $1 WHERE id = $2",
+        [filePath, userId]
+      );
+
+      res
+        .status(200)
+        .json({ message: "Profile picture uploaded successfully!", filePath });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "An error occurred during upload." });
+    }
+  }
+);

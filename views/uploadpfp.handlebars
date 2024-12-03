@@ -1,0 +1,17 @@
+<div class="upload-container">
+  <h1>Choose <span class="highlight">your</span> profile picture</h1>
+  <div class="profile-pic-placeholder">
+    <img src="/default-profile.png" alt="Profile Picture" />
+  </div>
+  <div class="button-group">
+    <button class="btn-secondary" id="change-pic">Change Picture</button>
+    <button class="btn-main" id="start-sharing">Start Sharing
+      <span>→</span></button>
+  </div>
+</div>
+
+<form action="/create_post" enctype="multipart/form-data" method="post">
+  <input type="text" name="text" />
+  <input type="file" name="image" />
+  <input type="submit" />
+</form>

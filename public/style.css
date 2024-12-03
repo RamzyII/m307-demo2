@@ -384,3 +384,171 @@ input[type="password"] {
 .register-text a:hover {
   text-decoration: underline;
 }
+
+/* Profile Picture Upload Page */
+.upload-container {
+  max-width: 600px;
+  margin: 150px auto;
+  text-align: center;
+  color: var(--white);
+}
+
+.upload-container h1 {
+  font-size: 2.5em;
+  margin-bottom: 50px;
+  color: var(--white);
+}
+
+.upload-container .highlight {
+  color: var(--accent);
+}
+
+.profile-pic-placeholder {
+  width: 150px;
+  height: 150px;
+  background-color: var(--main-gray);
+  border-radius: 50%;
+  margin: 0 auto 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-pic-placeholder img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 50%;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+/*Search site*/
+
+/* Home Button */
+.home-btn {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background-color: var(--main-gray);
+  border-radius: 30px;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  z-index: 1; /* Keep the button above other content */
+}
+
+.home-btn:hover {
+  background-color: #3b2b1f; /* Darker brown */
+}
+
+.home-btn svg {
+  margin-right: 10px;
+  fill: #ffaa07;
+}
+
+/* Container Search - Full Width */
+.container-search {
+  width: 100%; /* Full width of the screen */
+  height: 100vh; /* Full height of the viewport */
+  background-color: var(--main);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+}
+
+.search-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.search-header h1 {
+  color: var(--white);
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  background-color: var(--main);
+  border-radius: 50px;
+  padding: 10px;
+}
+
+.search-bar input[type="text"] {
+  flex: 1;
+  padding: 15px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 25px 0 0 25px;
+  background-color: var(--main-gray);
+  color: var(--white);
+  outline: none;
+}
+
+/* Search Icon inside the search bar */
+.search-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--main-gray);
+  border-radius: 0 25px 25px 0;
+  cursor: pointer;
+  margin-left: -1px; /* Removes any space between icon and input field */
+}
+
+.search-icon svg {
+  fill: var(--white);
+}
+
+/*Main Site */
+/* Back to Top Button Styles */
+#backToTop {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #292222; /* Dark background */
+  border-radius: 15px; /* Rounded corners */
+  padding: 15px;
+  border: none;
+  display: none; /* Hidden initially */
+  cursor: pointer;
+  transition: opacity 0.3s ease, background-color 0.3s ease;
+  z-index: 1000;
+}
+
+#backToTop svg {
+  fill: #ffaa07; /* The yellow color of the chevrons */
+  width: 40px; /* Adjust the icon size */
+  height: 40px;
+}
+
+#backToTop:hover {
+  background-color: #3b2b1f; /* Darker shade on hover */
+}
+
+/* Show the button when scrolled */
+#backToTop.show {
+  display: block;
+}

@@ -1,44 +1,3 @@
-app.get("/register", function (req, res) {
-  res.render("register");
-});
-
-app.post("/register", function (req, res) {
-  var password = bcrypt.hashSync(req.body.password, 10);
-  pool.query(
-    "INSERT INTO users (username, password) VALUES ($1, $2)",
-    [req.body.username, password],
-    (error, result) => {
-      if (error) {
-        console.log(error);
-      }
-      res.redirect("/login");
-    }
-  );
-});
-
-app.get("/login", function (req, res) {
-  res.render("login");
-});
-
-app.post("/login", function (req, res) {
-  pool.query(
-    "SELECT * FROM users WHERE username = $1",
-    [req.body.username],
-    (error, result) => {
-      if (error) {
-        console.log(error);
-      }
-      if (bcrypt.compareSync(req.body.password, result.rows[0].password)) {
-        req.session.userid = result.rows[0].id;
-        res.redirect("/");
-      } else {
-        res.redirect("/login");
-      }
-    }
-  );
-});
-
-// ApiCaller
 const BASE_URL = "https://api.spotify.com/v1/";
 
 const token =
@@ -60,7 +19,6 @@ async function fetchWebApi(songname, page) {
 
 async function makeApiCall(suchewort) {
   try {
-    console.log(`I am Called succesfully! Thinking about: ${suchewort}`);
     const result = await fetchWebApi(suchewort, 0);
     // Print the first three song names
     printFirstThreeSongs(result);
@@ -101,25 +59,7 @@ function printFirstThreeSongs(data) {
   }
 }
 
-// Get the button
-const backToTopButton = document.getElementById("backToTop");
-
-// When the user scrolls down 100px from the top of the document, show the button
-window.onscroll = function () {
-  if (
-    document.body.scrollTop > 100 ||
-    document.documentElement.scrollTop > 100
-  ) {
-    backToTopButton.classList.add("show");
-  } else {
-    backToTopButton.classList.remove("show");
-  }
-};
-
-// When the user clicks the button, scroll to the top of the document
-backToTopButton.onclick = function () {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth",
-  });
-};
+// Call the function to initiate the API call
+let topThreeSongs = {};
+const songsData = await makeApiCall("bauch beine po"); // Wait for the API call to finish
+console.log(topThreeSongs); // Log the returned data
