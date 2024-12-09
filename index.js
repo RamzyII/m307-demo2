@@ -1,4 +1,5 @@
-import { createApp, upload } from "./config.js";
+// import { createApp, upload } from "./config.js";
+import { createApp } from "./config.js";
 
 const app = createApp({
   user: "blue_flower_6241",
@@ -42,38 +43,38 @@ app.get("/overview", async function (req, res) {
 });
 
 /* Wichtig! Diese Zeilen müssen immer am Schluss der Website stehen! */
-app.listen(3010, () => {
-  console.log(`Example app listening at http://localhost:3010`);
-});
 
 app.get("/uploadpfp", async function (req, res) {
   res.render("uploadpfp", {});
 });
 
-app.post(
-  "/uploadProfilePicture",
-  upload.single("profilepicture"),
-  async (req, res) => {
-    try {
-      if (!req.file) {
-        return res.status(400).json({ message: "No file uploaded!" });
-      }
+// app.post(
+//   "/uploadProfilePicture",
+//   upload.single("profilepicture"),
+//   async (req, res) => {
+//     try {
+//       if (!req.file) {
+//         return res.status(400).json({ message: "No file uploaded!" });
+//       }
 
-      const filePath = `/uploads/profiles/${req.file.filename}`;
-      const userId = req.session.userid; // Benutzer-ID aus der Session
+//       const filePath = `/uploads/profiles/${req.file.filename}`;
+//       const userId = req.session.userid; // Benutzer-ID aus der Session
 
-      // Update der Datenbank
-      await app.locals.pool.query(
-        "UPDATE users SET profilpicture = $1 WHERE id = $2",
-        [filePath, userId]
-      );
+//       // Update der Datenbank
+//       await app.locals.pool.query(
+//         "UPDATE users SET profilpicture = $1 WHERE id = $2",
+//         [filePath, userId]
+//       );
 
-      res
-        .status(200)
-        .json({ message: "Profile picture uploaded successfully!", filePath });
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: "An error occurred during upload." });
-    }
-  }
-);
+//       res
+//         .status(200)
+//         .json({ message: "Profile picture uploaded successfully!", filePath });
+//     } catch (err) {
+//       console.error(err);
+//       res.status(500).json({ message: "An error occurred during upload." });
+//     }
+//   }
+// );
+app.listen(3010, () => {
+  console.log(`Example app listening at http://localhost:3010`);
+});
