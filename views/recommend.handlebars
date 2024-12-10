@@ -1,0 +1,40 @@
+<div class="recommend-page">
+  <header>
+    <a href="/" class="home-btn">SoundBase</a>
+  </header>
+  <div class="container">
+    <!-- Song Info -->
+    <div class="song-info">
+      <img
+        id="album-cover"
+        src="https://via.placeholder.com/120"
+        alt="Album Cover"
+      />
+      <div>
+        <h2 id="song-title">Loading...</h2>
+        <p id="song-artist">Loading...</p>
+        <p id="album-name">Loading...</p>
+      </div>
+    </div>
+    <!-- Comment Section -->
+    <textarea
+      id="comment-input"
+      placeholder="What's your favorite part?"
+    ></textarea>
+    <form action="/like/{{id}}" enctype="multipart/form-data" method="POST">
+      <input type="submit" value="liken" />
+    </form>
+  </div>
+</div>
+<script>
+  // Lade Song-Daten aus Local Storage const selectedSong =
+  JSON.parse(localStorage.getItem("selectedSong")); if (selectedSong) {
+  document.getElementById("album-cover").src = selectedSong.albumImg ||
+  "https://via.placeholder.com/120";
+  document.getElementById("song-title").textContent = selectedSong.name ||
+  "Unknown Title"; document.getElementById("song-artist").textContent =
+  selectedSong.artists || "Unknown Artist"; // Zeigt den Albumnamen korrekt an
+  const albumName = selectedSong.album || "Unknown Album";
+  document.getElementById("album-name").textContent = albumName; } else {
+  console.error("No song data found."); }
+</script>

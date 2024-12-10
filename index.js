@@ -48,6 +48,30 @@ app.get("/uploadpfp", async function (req, res) {
   res.render("uploadpfp", {});
 });
 
+app.post("/like/:id", async function (req, res) {
+  const user = await login.loggedInUser(req);
+  if (!user) {
+    res.redirect("/login");
+    return;
+  }
+  app.get("/recommend/:id", async function (req, res) {
+    const event = await app.locals.pool.query(
+      "SELECT * FROM account_recommends WHERE id = $1",
+      [req.params.id]
+    );
+    const likes = await app.locals.pool.query(
+      "SELECT COUNT(user_id) FROM account_recommends WHERE account_id = $1",
+      [req.params.id]
+    );
+    res.render("details", { event: event.rows[0], likes: likes.rows[0] });
+  });
+  await app.locals.pool.query(
+    "INSERT INTO likes (post_id, user_id) VALUES ($1, $2)",
+    [req.params.id, user.id]
+  );
+  res.redirect("/");
+});
+
 // app.post(
 //   "/uploadProfilePicture",
 //   upload.single("profilepicture"),
