@@ -100,3 +100,22 @@ function printFirstThreeSongs(data) {
     console.error("No tracks found in the response.");
   }
 }
+
+async function recommendSong(songId) {
+  try {
+    const response = await fetch(`http://localhost:3010/recommend/${songId}`, {
+      method: "POST",
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      alert(`Recommendation added! Total: ${data.recommends} ®`);
+      window.location.reload();
+    } else {
+      alert("Failed to add recommendation.");
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Could not connect to the server.");
+  }
+}

@@ -1,7 +1,7 @@
 <div class="container-search">
   <!-- Home Button -->
   <header>
-    <a href="/" class="home-btn">
+    <a href="/intern" class="home-btn">
       <div class="home-icon">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -84,3 +84,86 @@
     </div>
   </div>
 </div>
+
+<script>
+
+
+const BASE_URL = "https://api.spotify.com/v1/";
+const token =
+  "BQBy3faFvCXy6cjpxgHRpZ2DKcScWjGkSmMoF2BsOEhd-opNO8ihrzj84kRIdN1BgP5XMjwIUFKsn8aRJ2iaER1kxzK4hNr4ACnYjG81UaeHCNWuR9i5WdE0J8xF2rqgUUnqzGDpYjOsetv5rsUQT5DXIXsQ3G3xmUuR-Ry0IX3B54XVUtLQkDWc7WQam_-q5FxJt6jlZIDlprU5Db6ojU8A6mUfsZMcYIpfg559Uvl_6_DAyCA9atIzbpUvcQjEqJ1_xIuh_sPlPge3v-498lMr8Q2bKCqE";
+
+async function fetchWebApi(songname, page) {
+  songname = songname.replace(" ", "+");
+  const res = await fetch(
+    `${BASE_URL}search?q=${songname}&type=track&offset=${page}&limit=50`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      method: "GET",
+    }
+  );
+  return await res.json();
+}
+
+async function makeApiCall(suchewort) {
+  try {
+    const result = await fetchWebApi(suchewort, 0);
+    printFirstThreeSongs(result);
+  } catch (error) {
+    console.error("Error fetching API:", error);
+  }
+}
+
+function printFirstThreeSongs(data) {
+  if (data.tracks && data.tracks.items) {
+    const resultsContainer = document.querySelector(".results-container");
+    resultsContainer.innerHTML = ""; // Vorherige Suchergebnisse löschen
+
+    data.tracks.items.forEach((track) => {
+      const resultElement = document.createElement("div");
+      resultElement.className = "result-item";
+
+      const albumImg =
+        track.album.images[0]?.url || "https://via.placeholder.com/50";
+
+      // Song-Daten anzeigen
+      resultElement.innerHTML = `
+        <img src="${albumImg}" alt="${track.name}" />
+        <div class="result-info">
+          <p class="result-title">${track.name}</p>
+          <p class="result-artist">${track.artists
+            .map((artist) => artist.name)
+            .join(", ")}</p>
+        </div>
+      `;
+
+      // Song speichern und weiterleiten
+      resultElement.addEventListener("click", () =>
+        handleSongClick(track)
+      );
+
+      resultsContainer.appendChild(resultElement);
+    });
+  } else {
+    console.error("No tracks found in the response.");
+  }
+}
+
+function handleSongClick(track) {
+  // Song-Objekt erstellen und in Local Storage speichern
+  const selectedSong = {
+    id: track.id, // Song-ID aus der API
+    name: track.name,
+    artists: track.artists.map((artist) => artist.name).join(", "),
+    albumImg: track.album.images[0]?.url || "https://via.placeholder.com/120"
+  };
+
+  localStorage.setItem("selectedSong", JSON.stringify(selectedSong));
+  console.log("Song gespeichert:", selectedSong);
+
+  // Weiterleitung zur Song-Seite
+  window.location.href = "/song";
+}
+
+</script>

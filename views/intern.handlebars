@@ -1,82 +1,83 @@
-<head>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Open Sans', sans-serif;
-        }
-    </style>
-</head>
-<body class="bg-gray-900 text-white">
-    <div class="max-w-screen-lg mx-auto p-5">
-        <div class="text-4xl font-bold mb-10">
-            <div class="flex items-center mb-5">
-                <img src="https://placehold.co/64x64" alt="Album cover placeholder image for My Eyes by Travis Scott" class="rounded mr-3">
-                <div>
-                    <p>My Eyes</p>
-                    <p>Travis Scott</p>
-                    <p>Utopia</p>
-                </div>
-            </div>
-            <div class="text-3xl font-light">Top Recommended Songs of all time</div>
-            <div class="text-xl">420 <span class="text-red-400">©</span> Recommendations</div>
-        </div>
-        <div class="bg-red-600 w-full py-1 mb-10"></div>
-        <div class="space-y-4">
-            <div class="flex justify-between items-center bg-gray-800 p-4 rounded">
-                <img src="https://placehold.co/50x50" alt="Mini album cover placeholder for My Eyes by Travis Scott" class="rounded mr-3">
-                <div>
-                    <p>My Eyes</p>
-                    <p>Travis Scott</p>
-                    <p>Utopia</p>
-                </div>
-                <div class="text-yellow-400">#1 | 420 <span class="text-red-400">©</span></div>
-                <button class="px-6 py-2 bg-yellow-600 text-white rounded cursor-pointer hover:bg-yellow-700 transition">Recommend</button>
-            </div>
-            <div class="flex justify-between items-center bg-gray-700 p-4 rounded">
-                <img src="https://placehold.co/50x50" alt="Mini album cover placeholder for Ab & An by GREEN" class="rounded mr-3">
-                <div>
-                    <p>Ab & An</p>
-                    <p>GREEN</p>
-                    <p>Highland</p>
-                </div>
-                <div class="text-yellow-300">#2 | 21 <span class="text-red-400">©</span></div>
-                <button class="px-6 py-2 bg-yellow-500 text-white rounded cursor-pointer hover:bg-yellow-600 transition">Recommend</button>
-            </div>
-            <div class="flex justify-between items-center bg-gray-600 p-4 rounded">
-                <img src="https://placehold.co/50x50" alt="Mini album cover placeholder for Scheiß auf eure Party by Ufo361" class="rounded mr-3">
-                <div>
-                    <p>Scheiß auf eure Party</p>
-                    <p>Ufo361</p>
-                    <p>Ich bin 2 Berliner</p>
-                </div>
-                <div class="text-yellow-200">#3 | 6 <span class="text-red-400">©</span></div>
-                <button class="px-6 py-2 bg-yellow-400 text-white rounded cursor-pointer hover:bg-yellow-500 transition">Recommended</button>
-            </div>
-            <div class="flex justify-between items-center bg-yellow-600 p-4 rounded">
-                <img src="https://placehold.co/50x50" alt="Mini album cover placeholder for Father Stretch My Hands, Pt. 1 by Kanye" class="rounded mr-3">
-                <div>
-                    <p>Father Stretch My Hands, Pt. 1</p>
-                    <p>Kanye</p>
-                    <p>The Life of Pablo</p>
-                </div>
-                <div class="text-white">#4 | 2 <span class="text-red-400">©</span></div>
-                <button class="px-6 py-2 bg-yellow-500 text-white rounded cursor-pointer hover:bg-yellow-600 transition">Recommend</button>
-            </div>
-        </div>
+<header>
+  <a href="/search" class="home-btn">
+    <div class="home-icon">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="22.06"
+        height="22.06"
+        viewBox="0 0 22.06 22.06"
+      >
+        <path
+          id="Icon_open-magnifying-glass"
+          data-name="Icon open-magnifying-glass"
+          d="M9.565-.018a9.565,9.565,0,0,0,0,19.129,9.454,9.454,0,0,0,4.536-1.12,2.733,2.733,0,0,0,.355.355l2.733,2.733a2.787,2.787,0,1,0,3.935-3.935l-2.733-2.733a2.733,2.733,0,0,0-.437-.355,9.436,9.436,0,0,0,1.2-4.536A9.575,9.575,0,0,0,9.592-.045Zm0,2.733A6.8,6.8,0,0,1,16.4,9.547a6.853,6.853,0,0,1-1.8,4.7l-.082.082a2.733,2.733,0,0,0-.355.355,6.838,6.838,0,0,1-4.618,1.722,6.832,6.832,0,0,1,0-13.664Z"
+          transform="translate(0 0.045)"
+          fill="#ffaa07"
+        />
+      </svg>
+
     </div>
-    <div class="fixed bottom-0 w-full bg-gray-800 p-4 text-gray-400">
-        <div class="flex justify-between items-center">
-            <div class="text-xl font-bold">SoundBase</div>
-            <div>
-                <input type="text" placeholder="SEARCH" class="bg-gray-700 p-2 rounded">
-                <button class="ml-3">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-            <button>
-                <i class="fas fa-arrow-up"></i>
-            </button>
+    <span>Search</span>
+  </a>
+</header>
+
+<div class="main-container">
+  <div class="head-text">
+    <h1>Recommended Songs</h1>
+  </div>
+
+  <ul class="song-list">
+    {{#each songs}}
+      <li class="song-card">
+        <!-- Song Bild -->
+        <div class="song-image">
+          <img src="{{image}}" alt="{{title}}" />
         </div>
-    </div>
+
+        <!-- Song Informationen -->
+        <div class="song-info">
+          <h3>{{title}}</h3>
+          <p>{{artist}}</p>
+        </div>
+
+        <!-- Empfehlungen und Button -->
+        <div class="recommend-section">
+          <span class="recommend-count">{{recommend_count}} ®</span>
+          <button class="recommend-btn" onclick="recommendSong('{{id}}')">
+            Recommend
+          </button>
+        </div>
+      </li>
+    {{/each}}
+  </ul>
+</div>
+
+
+<script>
+
+// Initialisiere Empfehlungen im Local Storage
+if (!localStorage.getItem("recommendations")) {
+  localStorage.setItem("recommendations", JSON.stringify({}));
+}
+
+// Song empfehlen
+function recommendSong(songId) {
+  // Empfehlungen aus Local Storage abrufen
+  let recommendations = JSON.parse(localStorage.getItem("recommendations"));
+
+  // Empfehlung für den Song erhöhen
+  if (recommendations[songId]) {
+    recommendations[songId]++;
+  } else {
+    recommendations[songId] = 1;
+  }
+
+  // Speichern
+  localStorage.setItem("recommendations", JSON.stringify(recommendations));
+
+  // Seite neu laden oder Empfehlungen dynamisch aktualisieren
+  location.reload();
+}
+
+
+</script>

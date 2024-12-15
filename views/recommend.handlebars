@@ -1,9 +1,11 @@
 <div class="recommend-page">
+  <!-- Header mit Home-Button -->
   <header>
     <a href="/" class="home-btn">SoundBase</a>
   </header>
-  <div class="container">
-    <!-- Song Info -->
+
+  <!-- Container für Song-Daten -->
+  <div class="container-songs">
     <div class="song-info">
       <img
         id="album-cover"
@@ -13,28 +15,42 @@
       <div>
         <h2 id="song-title">Loading...</h2>
         <p id="song-artist">Loading...</p>
-        <p id="album-name">Loading...</p>
       </div>
     </div>
-    <!-- Comment Section -->
+
+    <!-- Kommentar-Eingabe und Recommend-Button -->
     <textarea
       id="comment-input"
       placeholder="What's your favorite part?"
     ></textarea>
-    <form action="/like/{{id}}" enctype="multipart/form-data" method="POST">
-      <input type="submit" value="liken" />
-    </form>
+    <button class="recommend-btn" onclick="submitRecommendation()">
+      Recommend ➔
+    </button>
   </div>
 </div>
+
 <script>
-  // Lade Song-Daten aus Local Storage const selectedSong =
+  // Lade Song-Daten aus Local Storage 
+  const selectedSong =
   JSON.parse(localStorage.getItem("selectedSong")); if (selectedSong) {
   document.getElementById("album-cover").src = selectedSong.albumImg ||
   "https://via.placeholder.com/120";
   document.getElementById("song-title").textContent = selectedSong.name ||
   "Unknown Title"; document.getElementById("song-artist").textContent =
-  selectedSong.artists || "Unknown Artist"; // Zeigt den Albumnamen korrekt an
-  const albumName = selectedSong.album || "Unknown Album";
+  selectedSong.artists || "Unknown Artist";
   document.getElementById("album-name").textContent = albumName; } else {
-  console.error("No song data found."); }
+  console.error("No song data found."); } async function submitRecommendation() { const commentInput =
+  document.getElementById("comment-input").value; if (!commentInput) {
+  alert("Please enter a comment before submitting!"); return; } if
+  (!selectedSong || !selectedSong.id) { alert("No song data found!"); return; }
+  console.log("Sending recommendation for song ID:", selectedSong.id); try {
+  const response = await fetch(`/recommend/${selectedSong.id}`, { method:
+  "POST", headers: { "Content-Type": "application/json" }, body:
+  JSON.stringify({ kommentar: commentInput }), }); const responseText = await
+  response.text(); console.log("Server response:", responseText); if
+  (response.ok) { const data = JSON.parse(responseText); alert(`Recommendation
+  added! Total: ${data.recommends} ®`); window.location.reload(); } else {
+  console.error("Error adding recommendation:", responseText); alert("Failed toadd recommendation."); } } catch (error) { console.error("Network Error:",
+  error); alert("Could not connect to the server."); } }
+
 </script>

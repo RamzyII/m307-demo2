@@ -1,7 +1,8 @@
 const BASE_URL = "https://api.spotify.com/v1/";
+let topThreeSongs = {};
 
 const token =
-  "BQCT8dF5TT_qShlxEgEPSG08F5zbRZgM6dp4aad3lz6MKgZxnzZ7bnzZAY1RXjI9hnzCHaApbb018tz5LiWuZD_qgdNmIfchZTXZTcrjXo-iyycD_b1YHosoN-yqDistfk-L96rn56iv2g6mhM_MQE4R_fV7sc7My88zLad3X5v4IpcA6D6ksm6xLKGQ1cAB3j2CcWxWj3KrJqLcNkBBCIXWGLjppbWkKpMvJlUSFhlLhqY4h3dChl-FBATRiuwjcyEXG3XjgOVSNw";
+  "BQC3OFuDbM3p5y8UxyOPlMGbKEDQGgQ_AYAYJbs6Q-4PV5qggVjDcFV3Zu876_i0sCErURWUVUCpv8IxX9aFjo4mn5ndtBWXEg81358gl3j-ppfjj55zRlIfasPKQbM9dBxmnpw44xFhebhE2VwAnltxsmKUdQOusLdaWm-3qwTsYBwfOUkiSCcIHqVdcUhaivtk5KamcIzJU5VY67RWl_3a4NQC9N3qVGrC15PiXUDSux0A8mCgeSa2MOaPj1NZDrLdF46y-JIr9ko_XfgzqWWerryerDv4";
 
 async function fetchWebApi(songname, page) {
   songname = songname.replace(" ", "+");
@@ -34,32 +35,48 @@ async function makeApiCall(suchewort) {
 
 function printFirstThreeSongs(data) {
   if (data.tracks && data.tracks.items) {
-    const songs = data.tracks.items.slice(0, 3); // Get the first 3 items
-    songs.forEach((song, index) => {
-      const songName = song.name;
-      const artistNames = song.artists.map((artist) => artist.name).join(", ");
-      const albumImage =
+    const dropdownMenu = document.getElementById("dropdown-menu");
+    dropdownMenu.innerHTML = ""; // Alte Inhalte entfernen
+    const songs = data.tracks.items.slice(0, 5); // Erste drei Songs
+    songs.forEach((song) => {
+      const songElement = document.createElement("div");
+      songElement.className = "song-info";
+
+      const albumImg =
         song.album.images.length > 0
           ? song.album.images[0].url
-          : "No image available";
+          : "placeholder.jpg"; // Fallback-Bild
 
-      console.log(`Song: ${songName}`);
-      console.log(`Artist(s): ${artistNames}`);
-      console.log(`Album Image: ${albumImage}`);
-      console.log("-------------------------");
+      songElement.innerHTML = `
+        <img src="${albumImg}" alt="${song.name}" />
+        <div class="name-and-artist">
+          <p class="song-title">${song.name}</p>
+          <p class="song-artist">${song.artists
+            .map((artist) => artist.name)
+            .join(", ")}</p>
+        </div>
+      `;
 
-      topThreeSongs[`song${index + 1}`] = {
-        name: songName,
-        artist: artistNames,
-        picture: albumImage,
-      };
+      // Klick-Event hinzufügen
+      songElement.addEventListener("click", () =>
+        handleSongClick({
+          name: song.name,
+          artists: song.artists.map((artist) => artist.name).join(", "),
+          albumImg: albumImg,
+        })
+      );
+
+      dropdownMenu.appendChild(songElement);
     });
   } else {
     console.error("No tracks found in the response.");
   }
 }
 
-// Call the function to initiate the API call
-let topThreeSongs = {};
-const songsData = await makeApiCall("bauch beine po"); // Wait for the API call to finish
-console.log(topThreeSongs); // Log the returned data
+// Funktion, die einen Song speichert und die Seite wechselt
+function handleSongClick(song) {
+  // Song-Daten im Local Storage speichern
+  localStorage.setItem("selectedSong", JSON.stringify(song));
+  // Auf die neue Seite weiterleiten
+  window.location.href = "song.html";
+}

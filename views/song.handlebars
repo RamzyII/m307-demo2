@@ -1,8 +1,8 @@
 <header>
   <a href="#" class="home-btn">SoundBase</a>
-  <div class="menu">Menu</div>
+
 </header>
-<div class="container">
+<div class="container-songs">
   <div class="song-header">
     <!-- Dynamischer Inhalt von der API -->
     <img
@@ -13,21 +13,12 @@
     <div class="song-info">
       <h1 id="song-title">Loading...</h1>
       <h2 id="song-artist">Loading...</h2>
-      <p id="album-name">Loading...</p>
     </div>
-    <!-- Button zum Öffnen des Overlays -->
-    <button
-      class="recommend-btn"
-      onclick="openOverlay({
-name: document.getElementById('song-title').textContent,
-artists: document.getElementById('song-artist').textContent,
-albumImg: document.getElementById('album-cover').src
-})"
-    >
+    <button onclick="window.location.href='/recommend'" class="recommend-btn">
       Recommend
     </button>
   </div>
-  <div class="recent-recommendations">
+  <div class="recent-recommendations" id="recent-recommendations">
     <h2>Recent recommendations</h2>
     <!-- Hier können dynamisch Kommentare eingefügt werden -->
     <div class="comment">
@@ -38,36 +29,50 @@ albumImg: document.getElementById('album-cover').src
           <p class="time">14:20</p>
         </div>
       </div>
-      <div class="content">I love skibidi Toilet song, it's so great!</div>
+      <div class="content">I love this song, it's so great!</div>
       <div class="like-btn">❤️</div>
     </div>
   </div>
 </div>
-<!-- Overlay hinzufügen -->
-<div id="recommend-overlay" class="overlay hidden">
-  <div class="overlay-content">
-    <button class="close-btn" onclick="closeOverlay()">✕</button>
-    <div class="song-info">
-      <img
-        id="overlay-album-img"
-        src="https://via.placeholder.com/120"
-        alt="Album Cover"
-      />
-      <div>
-        <h2 id="overlay-song-title">Song Title</h2>
-        <p id="overlay-song-artist">Artist</p>
-      </div>
-    </div>
-    <textarea
-      id="comment-input"
-      placeholder="What's your favorite part?"
-    ></textarea>
-    <button class="recommend-submit" onclick="submitRecommendation()">
-      Recommend ➔
-    </button>
-    <div id="success-message" class="hidden">
-      <div class="success-icon">✔</div>
-      <p>Successfully recommended</p>
-    </div>
-  </div>
-</div>
+
+<script>
+
+  // Daten aus Local Storage laden 
+  const selectedSong =
+  JSON.parse(localStorage.getItem("selectedSong")); if (selectedSong) { //Elemente dynamisch befüllen 
+    document.getElementById("album-cover").src =
+  selectedSong.albumImg; document.getElementById("song-title").textContent =
+  selectedSong.name; document.getElementById("song-artist").textContent =
+  selectedSong.artists;
+  const albumName = selectedSong.album?.name ||
+  selectedSong.album || "Unknown Album";
+ } else {
+  console.error("No song data found in localStorage."); } function
+  handleSongClick(song) { // Speichere die Song-Daten inklusive Albumname
+  localStorage.setItem( "selectedSong", JSON.stringify({ name: song.name,
+  artists: song.artists, albumImg: song.albumImg, album: song.album, //Albumname hinzufügen 
+}) ); // Weiterleiten zur Recommend-Seite
+  window.location.href = "/recommend"; } async function recommendSong(songId) {
+  try { const response = await fetch(`/recommend/${songId}`, { method: "POST",
+  }); if (response.ok) { const data = await response.json();
+  alert(`Recommendation added! Total: ${data.recommends} ®`);
+  window.location.reload(); } else { alert("Failed to add recommendation."); } }
+  catch (error) { console.error("Error:", error); alert("Could not connect tothe server."); } } async function loadComments() { const selectedSong =
+  JSON.parse(localStorage.getItem("selectedSong")); if (!selectedSong ||
+  !selectedSong.id) { console.error("No song ID found."); return; } try { //API-Route aufrufen 
+    const response = await
+  fetch(`/api/comments/${selectedSong.id}`); const comments = await
+  response.json(); // Container für Kommentare auswählen 
+  const commentsContainer
+  = document.querySelector(".recent-recommendations");
+  commentsContainer.innerHTML = "<h2>Recent recommendations</h2>"; // Kommentareanzeigen 
+  if (comments.length === 0) { commentsContainer.innerHTML += "<p>Nocomments yet.</p>"; return; } comments.forEach((comment) => { const
+  commentHTML = ` <div class="comment"> <div class="user"> <img
+  src="https://via.placeholder.com/40" alt="User Avatar" /> <div> <p
+  class="user-name">Anonymous</p> <p class="time">Just now</p> </div> </div>
+  <div class="content">${comment.kommentar}</div> <div class="like-btn">❤️</div>
+  </div> `; commentsContainer.innerHTML += commentHTML; }); } catch (error) {
+  console.error("Error loading comments:", error); } } // Kommentare beim Ladender Seite abrufen 
+  loadComments();
+
+</script>
